@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>С 8 Марта!</title>
+    <style>
+        body {
+            background-color: #ffe6f2;
+            text-align: center;
+            font-family: Arial, sans-serif;
+            color: #d63384;
+            overflow: hidden;
+        }
+        h1 {
+            margin-top: 50px;
+            font-size: 3em;
+            opacity: 0;
+            animation: fadeIn 2s ease-in forwards;
+        }
+        p {
+            font-size: 1.5em;
+            max-width: 600px;
+            margin: 20px auto;
+            opacity: 0;
+            animation: fadeIn 3s ease-in forwards 1s;
+        }
+        .heart {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background: url('https://cdn-icons-png.flaticon.com/512/833/833472.png') no-repeat center/contain;
+            animation: fall linear infinite;
+        }
+        @keyframes fall {
+            from { transform: translateY(-100px); opacity: 1; }
+            to { transform: translateY(100vh); opacity: 0; }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <h1>С 8 Марта, любимая!</h1>
+    <p>Ты – самое прекрасное, что есть в моей жизни! Пусть этот день принесёт тебе радость, улыбки и тепло. Я всегда рядом, даже если далеко. 💖</p>
+    <p>Ты – мой свет, моя радость и вдохновение. Желаю тебе бесконечного счастья, любви и исполнения всех желаний. 🌸</p>
+    <p>Пусть каждый день будет наполнен волшебством, а в сердце всегда царит радость! </p>
+    
+    <script>
+        function createHeart() {
+            const heart = document.createElement("div");
+            heart.classList.add("heart");
+            heart.style.left = Math.random() * window.innerWidth + "px";
+            heart.style.top = "-50px";
+            heart.style.animationDuration = (3 + Math.random() * 2) + "s";
+            heart.style.width = (20 + Math.random() * 30) + "px";
+            heart.style.height = heart.style.width;
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 5000);
+        }
+        setInterval(createHeart, 500);
+    </script>
+</body>
+</html>
