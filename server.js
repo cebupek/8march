@@ -1,4 +1,6 @@
 const http = require("http");
+const fs = require("fs");
+const path = require("path");
 
 const PORT = process.env.PORT || 3000;
 const HOST = process.env.RENDER_EXTERNAL_URL || `http://localhost:${PORT}`;
@@ -14,8 +16,16 @@ const server = http.createServer((req, res) => {
   }
 
   if (req.url === "/" && req.method === "GET") {
-    res.writeHead(200, { "Content-Type": "text/plain; charset=utf-8" });
-    res.end(`Сервер работает! 🟢\nВремя: ${now}\nПинг: GET /ping`);
+    const filePath = path.join(__dirname, "index.html");
+    fs.readFile(filePath, "utf8", (err, data) => {
+      if (err) {
+        res.writeHead(500, { "Content-Type": "text/plain" });
+        res.end("Ошибка загрузки index.html");
+        return;
+      }
+      res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
+      res.end(data);
+    });
     return;
   }
 
@@ -59,7 +69,6 @@ function selfPing() {
   req.end();
 }
 
-// Первый пинг через 1 секунду после старта, затем каждую секунду
 setTimeout(() => {
   selfPing();
   setInterval(selfPing, 1000);
